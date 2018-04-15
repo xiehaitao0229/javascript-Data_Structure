@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>希尔排序</title>
+</head>
+<body>
+    <script>
+
+        //  测试用例类
+        var CArray = function () {
+            this.dataStore = [10,8,3,2,5,9,4,7,35,48,20];
+            this.gaps = [5,3,1];  //  排序的间隔序列
+            this.shellSort = shellSort;  //  静态希尔排序方法，间隔值是定死的
+            this.swap = swap;  //  交换方法
+            this.dynamiSort = dynamiSort  // 动态改变间隔值的希尔排序
+        }
+
+        //  交换方法
+        function swap(arr,index1,index2){
+            var temp = arr[index1];
+            arr[index1] = arr[index2];
+            arr[index2] = temp;
+        }
+
+        //  希尔排序
+        function shellSort() {
+            //  循环间隔序列
+            for(var g=0;g<this.gaps.length;g++){
+                //  拿到对应的间隔序列里面的元素
+                for(var i=this.gaps[g];i<this.dataStore.length;i++){
+                    var temp = this.dataStore[i];
+                    //  比较元素
+                    for(var j=i;j>=this.gaps[g]&&this.dataStore[j-this.gaps[g]]>temp;j-=this.gaps[g]){
+                        this.dataStore[j] = this.dataStore[j-this.gaps[g]];
+                    }
+                    this.dataStore[j] = temp;
+                }
+                console.log('输出间隔调换后的序列',this.dataStore);
+            }
+        }
+
+        //  动态改变间隔值的希尔排序
+        function dynamiSort() {
+            var N = this.dataStore.length;
+            var h = 1;
+            while(h<N/3){
+                h=3*h+1
+            }
+            while(h>=1){
+                for(var i=h;i<N;i++){
+                    for(var j=i;j>=h&&this.dataStore[j]<this.dataStore[j-h];j=j-h){
+                        this.swap(this.dataStore,j,j-h);
+                    }
+                }
+               h = (h-1)/3;
+            }
+        }
+
+        var mynums = new CArray();
+        mynums.dynamiSort();
+      //  console.log(mynums.dataStore);
+        console.log('动态希尔排序',mynums.dataStore);
+    </script>
+</body>
+</html>

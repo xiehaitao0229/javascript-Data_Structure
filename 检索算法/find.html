@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查找算法</title>
+</head>
+<body>
+<script>
+
+    //  顺序查找
+    function seqSearch(arr,data) {
+        for(var i=0;i<arr.length;i++){
+            if(arr[i]==data){
+                return i+1;
+            }
+        }
+        return -1; //  找不到
+    }
+
+    //  查找最大值
+    function findMax() {
+        var max = arr[0];
+        for(var i=0;i<arr.length;i++){
+            if(arr[i]>max){
+                max = arr[i]
+            }
+        }
+        return max;
+    }
+
+    //  查找最小值
+    function findMix() {
+        var min = arr[0];
+        for(var i=0;i<arr.length;i++){
+            if(arr[i]<min){
+                min = arr[i]
+            }
+        }
+        return min;
+    }
+
+    var arr = [23,100,56,78,32];
+    console.log('查找78元素的位置在',seqSearch(arr,78));
+    console.log('查找最大值',findMax());
+    console.log('查找最小值',findMix());
+
+
+    /*---------------------------------------*/
+    //  交换方法
+    function swap(arr,index1,index2){
+        var temp = arr[index1];
+        arr[index1] = arr[index2];
+        arr[index2] = temp;
+    }
+
+    //  自组织数据查找方法--二八原则
+    function seqSearch1(arr,data) {
+        for(var i=0;i<arr.length;i++){
+            if(arr[i]==data&&i>(arr.length*0.2)){
+                swap(arr,i,i-1);
+                return true;
+            }
+        }
+        return -1;//  查找不到
+    }
+
+    var arr = [23,100,56,78,32];
+    seqSearch1(arr,56)
+    seqSearch1(arr,56)
+    seqSearch1(arr,56)
+    seqSearch1(arr,32)
+    seqSearch1(arr,32)
+    console.log(arr)// arr结果为:[23, 56, 32, 100, 78]
+</script>
+</body>
+</html>

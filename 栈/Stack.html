@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+        function Stack(){
+            this.dataStore = []; //  保存栈内元素
+            this.top = 0;  //  标记可以插入新元素  栈内压入元素该变量变大，弹出元素变量变小
+            this.push = push; //  入栈操作
+            this.pop = pop;  //  出栈操作
+            this.peek = peek;  //  返回栈顶元素
+            this.clear = clear;  //  清空栈
+            this.length = length;  //  栈的长度
+        }
+        
+        //  向栈中压入元素，同时让指针top+1  一定注意要++
+        function push(ele){
+            this.dataStore[this.top++] = ele;
+        }
+        
+        //  出栈操作 同时将--top
+        function pop(){
+            return this.dataStore[--this.top];
+        }
+        
+        //  返回栈顶元素，变量top-1,返回，不删除
+        function peek(){
+            return this.dataStore[this.top-1];
+        }
+        
+        function clear(){
+            this.top = 0
+        }
+
+        function length(){
+            return this.top;
+        }
+        
+
+     /*   var s = new Stack();
+        s.push('小红第一');
+        s.push('小芳第二');
+        s.push('小涛第三');
+        s.push('小明第四');
+        console.log('栈的长度'+s.length());
+        console.log('栈顶元素'+s.peek());
+        console.log('出栈'+s.pop());
+        console.log('栈顶元素'+s.peek());
+    */
+
+    /*================回文算法=====================*/
+    function isPalindrome(word){
+        var s = new Stack();
+        for(var i=0;i<word.length;i++){
+            s.push(word[i]);
+        }
+        var rword = "";
+        while(s.length()>0){
+            rword+=s.pop();
+        }
+        if(rword==word){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    var word = 'racecar';
+    alert(isPalindrome(word));
+    </script>
+</body>
+</html>

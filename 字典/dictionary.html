@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>字典</title>
+</head>
+<body>
+    <script>
+        //  字典类
+        function Dictionary(){
+            this.dataStore = new Array();
+            this.add = add;  //  添加字典
+            this.remove = remove;  //  删除字典
+            this.clear = clear; //  清除所有字典
+            this.count = count;  //  查看字典的个数
+            this.find = find;  //  查找某个字典
+            this.showAll = showAll;  //  显示所有字典
+        }
+        
+        function add(key,value){
+            this.dataStore[key] = value;
+        }
+        
+        function find(key){
+            return this.dataStore[key];
+        }
+        
+        function remove(key){   
+            delete this.dataStore[key];
+        }
+
+        function showAll(){
+            var datakeys = Object.keys(this.dataStore).sort();
+            for(var keys in datakeys){
+                console.log(datakeys[keys]+'--->'+this.dataStore[datakeys[keys]]);
+            }
+        }
+
+        function count(){
+            return Object.keys(this.dataStore).length;
+        }
+
+        function clear(){
+            var datakeys = Object.keys(this.dataStore);
+            for(var keys in datakeys){
+                delete this.dataStore[datakeys[keys]];
+            }
+        }
+        
+
+        var pbook = new Dictionary();
+        pbook.add('Addadis',498);
+        pbook.add('Nike',999);
+        pbook.add('NB',654);
+        console.log('寻找Nike'+pbook.find('Nike'));
+        pbook.showAll();
+        pbook.remove('NB')
+        pbook.showAll();
+        console.log('字典个数'+pbook.count());
+        pbook.clear();
+        console.log('字典个数'+pbook.count());
+    </script>
+</body>
+</html>

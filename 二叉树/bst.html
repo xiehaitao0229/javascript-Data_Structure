@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>二叉树</title>
+</head>
+
+<body>
+    <script>
+
+        //  定义树节点
+        function Node(data, left, right) {
+            this.data = data;   //  数据
+            this.left = left;   //  左节点
+            this.right = right;  //  右节点
+            this.show = show;  //  展示二叉树
+        }
+
+        //  二叉查找树类
+        function Bst() {
+            this.root = null; //  根节点
+            this.insert = insert;//  插入节点
+            this.inOrder = inOrder; //  中序遍历
+            this.getMax = getMax;  //  最大值查找
+            this.getSmalllest = getSmalllest;    //  最小值查找
+            this.find = find;  //  查找特定值
+            this.remove = remove;  //  删除节点
+            this.removeNode = removeNode;  //  删除的辅助方法
+        }
+
+        function show() {
+            return this.data;
+        }
+
+        function insert(data){
+            var n= new Node(data,null,null);
+            if(this.root==null){
+                //  根节点为空就赋值当前的节点
+                this.root = n;
+            }else{
+                var current = this.root;
+                var parent;
+                while(true){
+                    parent = current;
+                    if(data<current.data){
+                        current = current.left;
+                        if(current==null){
+                            parent.left = n;
+                            break;
+                        }
+                    }else{
+                        current = current.right;
+                        if(current==null){
+                            parent.right = n;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        
+        //  中序遍历
+        function inOrder(node){
+            if(!(node==null)){
+                inOrder(node.left);
+                console.log(node.data);
+                inOrder(node.right);
+            }
+        }   
+        
+        //  最小值查找
+        function getSmalllest(root){
+            //  一直遍历左边的最末尾左节点
+            var current = this.root || root;
+            while(!(current.left==null)){
+                current = current.left;
+            }
+            return current.data;
+        }
+
+        //  最大值查找
+        function getMax(root){
+            //  一直遍历右边的最末尾的右节点
+            var current = this.root || root;
+            while(!(current.right==null)){
+                current = current.right;
+            }
+            return current.data;
+        }
+        
+        //  查找特定值
+        function find(data){
+            var current = this.root;
+            while(current!=null){
+                if(current==data){
+                    return current;
+                }else if(data<current.data){
+                    //  一直往左找
+                    current = current.left;
+                }else{
+                    //  一直往右找
+                    current = current.right;
+                }
+            }
+            return null;  //  没有找到
+        }
+        
+        //  删除方法
+        function remove(data){
+            removeNode(this.root,data);
+        }
+
+        function removeNode(node,data){
+            if(node==null){
+                return null;
+            }
+            if(data==node.data){
+                //  删除的节点没有子节点
+                if(node.left==null&&node.right==null){
+                    return null;
+                }
+                 //  删除的节点有一个右子节点
+                if(node.left==null){
+                    return node.right;
+                }
+                 //  删除的节点有一个左子节点
+                if(node.right==null){
+                    return node.left;
+                }
+                //  删除的节点有两个子节点
+                var tempNode = this.getSmalllest(node.right);
+                node.data = tempNode;
+                node.right = removeNode(node.right,tempNode.data);
+                return node;  
+            }else if(data<node.data){
+                node.left = removeNode(node.left,data);
+                return node;
+            }else{
+                node.right = removeNode(node.right,data);
+                return node;
+            }
+        }
+        
+
+        var nums = new Bst();
+        nums.insert(23);
+        nums.insert(45);
+        nums.insert(16);
+        nums.insert(37);
+        nums.insert(3);
+        nums.insert(99);
+        nums.insert(22);
+        console.log('遍历节点')
+        nums.inOrder(nums.root);
+        console.log('最小节点',nums.getSmalllest());
+        console.log('最大节点',nums.getMax());
+        
+        nums.remove(16)
+        nums.inOrder(nums.root)
+    </script>
+</body>
+
+</html>

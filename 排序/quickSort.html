@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>快速排序</title>
+</head>
+<body>
+<script>
+
+    //  快速排序
+    function qSort(list) {
+        if(list.length==0){
+            return [];
+        }
+        var pivot = list[0]; //  基准值
+        var lesser = [];  //  小于的基准值
+        var greater = [];  //  大于的基准值
+        for(var i=1;i<list.length;i++){
+            if(list[i]<pivot){
+                lesser.push(list[i]);
+            }else{
+                greater.push(list[i]);
+            }
+        }
+        return qSort(lesser).concat(pivot,qSort(greater));  //  不断的迭代
+    }
+
+    var data = [44,75,23,43,55,12,64,77,33];
+    console.log(qSort(data));
+</script>
+</body>
+</html>

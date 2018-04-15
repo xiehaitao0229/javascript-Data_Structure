@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>双向链表</title>
+</head>
+
+<body>
+    <script>
+
+        function Node(ele) {
+            this.ele = ele;
+            this.next = null;  //  后继
+            this.previous = null;  //  前驱
+        }
+
+        function DoubleLList() {
+            this.head = new Node('head');
+            this.insert = insert; //  插入操作
+            this.find = find; //  找到节点的位置
+            this.display = display; //  显示节点
+            this.remove = remove;  //  删除指定的节点
+            this.findLast = findLast;  //  找到最后的节点
+            this.displReverse = displReverse;  //  实现一个反序
+        }
+
+        function find(item) {
+            var currNode = this.head;
+            while (currNode.ele != item) {
+                currNode = currNode.next;
+            }
+            return currNode;
+        }
+
+        function insert(newEle, item) {
+            var newNode = new Node(newEle);
+            var currNode = this.find(item);
+            newNode.next = currNode.next;
+            newNode.previous = currNode;
+            currNode.next = newNode;
+            //  不是尾节点的情况
+            if (!(newNode.next == null)) {
+                currNode.next.previous = newNode;
+            }
+        }
+
+        function display() {
+            var currNode = this.head;
+            while (currNode.next != null) {
+                console.log(currNode.next.ele);
+                currNode = currNode.next;
+            }
+        }
+
+        function remove(item) {
+            var currNode = this.find(item);
+            //  不是尾节点
+            if(!(currNode.next==null)){
+                currNode.previous.next = currNode.next
+                currNode.next.previous = currNode.previous;
+                currNode.next = null;  //防止内存泄露
+                currNode.previous = null;  //防止内存泄露
+            }else{
+                currNode.previous.next = null;
+                currNode.previous = null;
+            }
+        }
+        
+        function findLast(){
+            var currNode = this.head;
+            while(!(currNode.next==null)){
+                currNode = currNode.next;
+            }
+            return currNode;
+        }
+
+        function displReverse(){
+            var currNode = this.findLast();  //  最后的节点
+            while(!(currNode.previous==null)){
+                console.log(currNode.ele);
+                currNode = currNode.previous;
+            }
+        }
+
+        var cities = new DoubleLList();
+        cities.insert('first', "head");
+        cities.insert('second', 'first');
+        cities.insert('thrid', 'second');
+        cities.display();
+        cities.displReverse();        
+        console.log('==========');
+
+        cities.remove('second');
+        cities.display();
+    </script>
+</body>
+
+</html>

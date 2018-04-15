@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>单向链表</title>
+</head>
+
+<body>
+    <script>
+
+        //  节点
+        function Node(ele) {
+            this.ele = ele;
+            this.next = null;
+        }
+
+        //  链表
+        function LList() {
+            this.head = new Node('head');
+            this.find = find;  //  找到节点的位置
+            this.insert = insert; //  插入操作
+            this.display = display; //  显示节点
+            this.findPrevious = findPrevious;  //  找到指定元素的前驱
+            this.remove = remove;  //  删除指定的节点
+        }
+
+        function find(item) {
+            var currNode = this.head;
+            while (currNode.ele != item) {
+                currNode = currNode.next;
+            }
+            return currNode;
+        }
+
+        function insert(newEle, item) {
+            var newNode = new Node(newEle);  //  创建新节点
+            var currNode = this.find(item); //  找到要插入的指定位置
+            newNode.next = currNode.next;
+            currNode.next = newNode;
+        }
+
+        function display() {
+            var currNode = this.head;
+            while (currNode.next != null) {
+                console.log(currNode.next.ele);
+                currNode = currNode.next;
+            }
+        }
+
+        function findPrevious(item) {
+            var currNode = this.head;
+            while (currNode.next != null && (currNode.next.ele != item)) {
+                currNode = currNode.next;
+            }
+            return currNode;
+        }
+
+        function remove(item) {
+            var preNode = this.findPrevious(item); //  找到前驱
+            var currNode = this.find(item);  //  找到当前的节点
+            if (preNode.next != null) {
+                preNode.next = currNode.next;
+                currNode.next = null;
+            }
+        }
+
+        var cities = new LList();
+        cities.insert('first', "head");
+        cities.insert('second', 'first');
+        cities.insert('thrid', 'second');
+        cities.display();
+
+        console.log('===========');
+        cities.remove('second');
+        cities.display();
+    </script>
+</body>
+
+</html>

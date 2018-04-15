@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        //  集合类
+        function Set(){
+            this.dataStore = [];
+            this.add = add; //  添加元素
+            this.remove = remove; //  删除元素
+            this.show = show;  //  显示所有元素
+            this.contains = contains;  //  集合是否包含某个元素
+            this.intersect = intersect;  //  交集
+            this.difference = difference;  //  差集
+            this.union = union;  //  并集
+            this.subset = subset;  //  是否是一个集合的子集
+            this.size = size;  //  集合的长度
+        }
+
+        function add(data){
+            if(this.dataStore.indexOf(data)<0){
+                this.dataStore.push(data);
+            }else{
+                return false;
+            }
+        }
+
+        function remove(data){
+            var pos = this.dataStore.indexOf(data);
+            if(pos>-1){
+                this.dataStore.splice(pos,1);
+            }else{
+                return false;
+            }
+        }
+
+        function show(){
+            return this.dataStore;
+        }
+
+        function contains(data){
+            if(this.dataStore.indexOf(data)>-1){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        function union(set){
+            var newSet = new Set();
+            for(var i=0;i<this.dataStore.length;i++){
+                newSet.add(this.dataStore[i]);
+            }
+            for(var i=0;i<set.dataStore.length;i++){
+                if(!newSet.contains(set.dataStore[i])){
+                    newSet.dataStore.push(set.dataStore[i]);
+                }
+            }
+            return newSet;
+        }
+
+        function intersect(set){
+            var newSet = new Set();
+            for(var i=0;this.dataStore.length;i++){
+                if(set.contains(this.dataStore[i])){
+                    newSet.add(this.dataStore[i])
+                }
+            }
+            return newSet;
+        }
+
+        function difference(set){
+            var newSet = new Set();
+            for(var i=0;this.dataStore.length;i++){
+                if(!(set.contains(this.dataStore[i]))){
+                    newSet.add(this.dataStore[i])
+                }
+            }
+            return newSet;
+        }
+        
+        function size(set){
+            return this.dataStore.length;
+        }
+
+        function subset(set){
+            if(set.size()>this.size()){
+                return false;
+            }else{
+                for(var i=0;i<set.dataStore.length;i++){
+                    if(!this.contains(set.dataStore[i])){
+                        return false;
+                    }else{
+                        return true;
+                    }
+                }
+            }
+        }
+
+        var names = new Set();
+        names.add('小红');
+        names.add('小明');
+        names.add('小涛');
+        names.add('小王');
+        names.add('小绿');
+        names.add('小狗');
+        console.log(names.show());
+        names.remove('小涛');
+        console.log(names.show());
+
+        var cis = new Set();
+        cis.add('张三');
+        cis.add('小涛');
+        cis.add('王五');
+        
+        var it = new Set();
+        console.log('并集');
+        it = names.union(cis);
+        console.log(it.show());
+
+        console.log('交集');
+        it = names.intersect(cis);
+        console.log(it.show());
+
+        console.log('差集');
+        it = names.difference(cis);
+        console.log(it.show())
+    </script>
+</body>
+</html>

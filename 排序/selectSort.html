@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选择排序</title>
+</head>
+<body>
+
+<script>
+
+    //  测试用例类
+    var CArray = function () {
+        this.dataStore = [1,8,3,2,9,5,4,7];
+        this.swap = swap;
+        this.selectSort = selectSort;
+    }
+
+    //  交换方法
+    function swap(arr,index1,index2){
+        var temp = arr[index1];
+        arr[index1] = arr[index2];
+        arr[index2] = temp;
+    }
+    
+    //  选择排序方法
+    function selectSort() {
+        var min;                             //  注意
+        for(var outer = 0;outer<this.dataStore.length-2;++outer){
+            min = outer;
+            for(var inner=outer+1;inner<this.dataStore.length;++inner){
+                if(this.dataStore[inner]<this.dataStore[min]){
+                    min = inner;
+                }
+            }
+            //  找到最小值，进行交换
+            this.swap(this.dataStore,outer,min);
+        }
+    }
+
+    var mynums = new CArray();
+    mynums.selectSort();
+    console.log(mynums.dataStore);
+</script>
+
+</body>
+</html>

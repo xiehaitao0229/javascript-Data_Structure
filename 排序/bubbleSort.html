@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>冒泡排序</title>
+</head>
+<body>
+    <script>
+        //  测试用例类
+        var CArray = function(){
+            this.dataStore = [10,8,3,2,9,1];
+            this.swap = swap;
+            this.bubbleSort = bubbleSort;
+        }
+
+        //  交换方法
+        function swap(arr,index1,index2){
+            var temp = arr[index1];
+            arr[index1] = arr[index2];
+            arr[index2] = temp;
+        }
+        
+        //  冒泡排序
+        function bubbleSort() {
+            var data = this.dataStore;
+            numEle = data.length;
+            for(var outer=numEle;outer>=2;--outer){
+                for(var inner=0;inner<=outer-1;inner++){
+                    if(data[inner]>data[inner+1]){
+                        this.swap(this.dataStore,inner,inner+1)
+                    }
+                }
+            }
+        }
+
+        var mynums = new CArray();
+        mynums.bubbleSort(mynums);
+        console.log(mynums.dataStore);
+    </script>
+</body>
+</html>

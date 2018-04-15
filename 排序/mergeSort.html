@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>归并排序</title>
+</head>
+<body>
+<script>
+
+    //  归并排序
+    function mergeSort(arr) {
+        if(arr.length<2){
+            return ;
+        }
+        var step = 1;
+        var left,right;
+        while(step<arr.length){
+            left = 0;
+            right = step;
+            while(right+step<=arr.length){
+                mergeArrays(arr,left,left+step,right,right+step);
+                left = right+step;
+                right = left+step;
+            }
+            if(right<arr.length){
+                mergeArrays(arr,left,left+step,right,arr.length);
+            }
+            step*=2;
+        }
+    }
+
+    //  合并数组方法
+    function mergeArrays(arr, startLeft, stopLeft, startRight, stopRight) {
+        var rightArr = new Array(stopRight-startRight+1);
+        var leftArr = new Array(stopLeft-startLeft+1);
+
+        k=startRight;
+        for(var i=0;i<(rightArr.length-1);i++){
+            rightArr[i] = arr[k];  //  拿到右数组
+            ++k;
+        }
+
+        k=startLeft;
+        for(var i=0;i<(leftArr.length-1);i++){
+            leftArr[i] = arr[k];  //  拿到左数组
+            ++k;
+        }
+
+        rightArr[rightArr.length-1] = Infinity;
+        leftArr[leftArr.length-1] = Infinity;
+
+        var m = 0; //  左数组开始位置
+        var n = 0; //  右数组的开始位置
+        for(var k=startLeft;k<stopRight;k++){
+            if(leftArr[m]<=rightArr[n]){
+                arr[k] = leftArr[m];
+                m++;
+            }else{
+                arr[k] = rightArr[n];
+                n++;
+            }
+        }
+    }
+
+
+    var arr = [23,45,19,98,32,67,12,3,9];
+    mergeSort(arr);
+    console.log(arr);
+</script>
+</body>
+</html>
