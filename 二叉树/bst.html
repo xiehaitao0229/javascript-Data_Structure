@@ -24,11 +24,15 @@
             this.root = null; //  根节点
             this.insert = insert;//  插入节点
             this.inOrder = inOrder; //  中序遍历
+            this.preOrder = preOrder;// 先序遍历
+            this.postOrder = postOrder;  //  后序遍历
             this.getMax = getMax;  //  最大值查找
             this.getSmalllest = getSmalllest;    //  最小值查找
             this.find = find;  //  查找特定值
             this.remove = remove;  //  删除节点
             this.removeNode = removeNode;  //  删除的辅助方法
+            this.nodeCount = nodeCount;//  统计二叉树的节点个数
+            this.sideCount = sideCount;  //  统计二叉树的边个数
         }
 
         function show() {
@@ -69,7 +73,25 @@
                 console.log(node.data);
                 inOrder(node.right);
             }
-        }   
+        }
+
+        //  先序遍历
+        function preOrder(node) {
+            if(!(node==null)){
+                console.log(node.data)
+                preOrder(node.left)
+                preOrder(node.right)
+            }
+        }
+
+        //  后序遍历
+        function postOrder(node) {
+            if(!(node==null)){
+                postOrder(node.left)
+                postOrder(node.right)
+                console.log(node.data)
+            }
+        }
         
         //  最小值查找
         function getSmalllest(root){
@@ -141,6 +163,28 @@
             }else{
                 node.right = removeNode(node.right,data);
                 return node;
+            }
+        }
+
+        //  统计二叉树的节点个数
+        function nodeCount(node) {
+            var count = 0
+            if(node==null){
+                return 0
+            }else{
+                count = 1+nodeCount(node.left)+nodeCount(node.right)
+                return count;
+            }
+        }
+
+        //  统计二叉树的边个数
+        function  sideCount(node) {
+            var count = 0
+            if(node==null){
+                return 0
+            }else{
+                count = 1+nodeCount(node.left)+nodeCount(node.right)
+                return count-1;
             }
         }
         
